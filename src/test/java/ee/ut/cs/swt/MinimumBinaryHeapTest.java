@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MinimumBinaryHeapTest {
 	
@@ -82,6 +81,12 @@ public class MinimumBinaryHeapTest {
 		heap = new MinimumBinaryHeap();
 		assertEquals(true, heap.isEmpty());
 	}
+	@Test
+	public void isNotEmptyTest() {
+		heap = new MinimumBinaryHeap();
+		heap.add(1);
+		assertEquals(false, heap.isEmpty());
+	}
 
 	@Test
 	public void extractMinOnEmptyHeap() {
@@ -129,7 +134,50 @@ public class MinimumBinaryHeapTest {
 		assertEquals(12, heap.getArray().get(4), 0);
 	}
 
+	@Test
+	public void bubbleUpTest() {
+		heap.add(1);
+		heap.add(2);
+		heap.add(3);
+		heap.add(4);
+		heap.add(5);
 
+		heap.bubbleUp(heap.getArray().size() - 1);
+		assertEquals(Arrays.asList(1, 2, 3, 4, 5), heap.getArray());
+	}
+
+	@Test
+	public void bubbleDownTest() {
+		heap.add(1);
+		heap.add(2);
+		heap.add(3);
+		heap.add(4);
+		heap.add(5);
+
+		heap.bubbleDown(0);
+		assertEquals(Arrays.asList(1, 2, 3, 4, 5), heap.getArray());
+	}
+
+	@Test
+	public void removeNonExistentElementTest() {
+		heap.add(1);
+		heap.add(2);
+		heap.add(3);
+		heap.add(4);
+		heap.add(5);
+
+		assertFalse(heap.remove(6));
+	}
+
+	@Test
+	public void removeLastTest() {
+		heap.add(5);
+		heap.add(3);
+		heap.add(2);
+		boolean b1 = heap.remove(2);
+
+		assertEquals(true, b1);
+	}
 
 
 
