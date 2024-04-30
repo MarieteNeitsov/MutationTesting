@@ -33,7 +33,23 @@ public class MinimumBinaryHeapTest {
 		assertEquals(5, heap.getArray().get(2), 0);
 
 	}
-	
+
+	@Test
+	public void minHeapifyWithNegativeTest() {
+		var tempArr = new ArrayList<Integer>();
+		tempArr.add(-10);
+		tempArr.add(0);
+		tempArr.add(10);
+		tempArr.add(-20);
+		tempArr.add(20);
+
+		heap.minHeapify(tempArr);
+
+		assertEquals(-20, heap.getArray().get(0));
+		assertEquals(-10, heap.getArray().get(1));
+		assertEquals(10, heap.getArray().get(2));
+	}
+
 	@Test
 	public void extractMinTest() {
 		heap.add(7);
@@ -41,6 +57,24 @@ public class MinimumBinaryHeapTest {
 		heap.add(6);
 		int min = heap.exractMin();
 		assertEquals(1, min);
+	}
+
+	@Test
+	public void extractMinAndCheckArrayTest() {
+		heap.add(10);
+		heap.add(0);
+		heap.add(-10);
+		heap.add(20);
+		heap.add(-20);
+
+		int min = heap.exractMin();
+
+		assertEquals(-20, min);
+
+		assertEquals(-10, heap.getArray().get(0));
+		assertEquals(10, heap.getArray().get(1));
+		assertEquals(0, heap.getArray().get(2));
+		assertEquals(20, heap.getArray().get(3));
 	}
 	
 	@Test
@@ -75,6 +109,24 @@ public class MinimumBinaryHeapTest {
 
 		assertEquals(true, b1);
 	}
+
+	@Test
+	public void removeAndCheckArrayTest() {
+		heap.add(-20);
+		heap.add(20);
+		heap.add(-10);
+		heap.add(10);
+		heap.add(0);
+
+		assertTrue(heap.remove(20));
+
+		assertEquals(-20, heap.getArray().get(0));
+		assertEquals(0, heap.getArray().get(1));
+		assertEquals(-10, heap.getArray().get(2));
+		assertEquals(10, heap.getArray().get(3));
+	}
+
+
 
 	@Test
 	public void isEmptyTest() {
@@ -159,6 +211,21 @@ public class MinimumBinaryHeapTest {
 	}
 
 	@Test
+	public void removeWithEqualsTest() {
+		heap.add(-20);
+		heap.add(0);
+		heap.add(0);
+		heap.add(10);
+		heap.add(10);
+		heap.add(10);
+		heap.add(10);
+
+		heap.remove(-20);
+
+		assertEquals(Arrays.asList(0, 10, 0, 10, 10, 10), heap.getArray());
+	}
+
+	@Test
 	public void removeNonExistentElementTest() {
 		heap.add(1);
 		heap.add(2);
@@ -178,13 +245,5 @@ public class MinimumBinaryHeapTest {
 
 		assertEquals(true, b1);
 	}
-
-
-
-
-
-
-
-
 }
 
